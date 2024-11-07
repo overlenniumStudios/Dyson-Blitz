@@ -1,0 +1,51 @@
+|--------------------------------------------------------------------------|
+| Alguns códigos nos arquivos dos jogos não estão dentro desse padrão.     |
+| Caso você encontre algo fora do padrão, tente formatá-lo para facilitar  |
+| a vida de todos os programadores envolvidos no projeto!                  |
+|--------------------------------------------------------------------------|
+
+A script Spaceship.gd está no padrão, use-a de base
+
+VALORES
+	Variáveis...............funnyVariableName
+	Booleanas...............funnyBooleanName
+	Constantes..............CONSTANT_VALUE
+
+
+COMENTÁRIOS
+	Em inglês
+	
+	Para linhas individuais de código...
+		Na mesma linha
+		Maíusculo no início
+		Minúsculo normalmente, regras de gramática
+	
+	Título para seções de código para uma função
+		Uma linha acima
+		CAIXA ALTA
+
+
+DECLARAÇÃO DE VALORES
+	Primeiro declarar constantes
+	Depois, declarar variáveis e booleanas em seções específicas de suas áreas
+
+
+FATOS IMPORTANTES MANEIROS
+	Ângulos são em radiano
+	
+	Quando for incrementar um valor com o tempo, não adicione um valor inteiro, adicione DELTA * valor
+		EXEMPLOS:
+		
+		playerShootingCooldown += 1
+		adiciona 1 à playerShootingCooldown a cada tick, o que pode 
+		foder com o timing caso o FPS caia pra menos que sessenta
+		
+		playerShootingCooldown += delta
+		adiciona 1 à playerShootingCooldown a cada segundo
+		
+		playerShootingCooldown += delta * 3
+		adiciona 3 à playerShootingCooldown a cada segundo
+		
+		delta é a quantidade de segundos elapsados desde o último frame,
+		então, a 60FPS, adicionar delta todo tick adiciona 1/60(0,016) à
+		um valor a cada tick que passa no jogo.

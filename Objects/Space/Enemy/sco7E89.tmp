@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://yamovpfg2v0x"]
+
+[ext_resource type="Script" path="res://Objects/Space/Enemy/scout.gd" id="1_843id"]
+[ext_resource type="Texture2D" uid="uid://youjnptxgqd6" path="res://Images/Space/Enemy/Scout/Base.png" id="1_tqwv0"]
+[ext_resource type="Texture2D" uid="uid://dq7gj2n8u5tch" path="res://Images/Space/Enemy/Scout/Normalmap.png" id="2_pfe7o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2d3t6"]
+size = Vector2(60, 48)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_ahtdi"]
+diffuse_texture = ExtResource("1_tqwv0")
+normal_texture = ExtResource("2_pfe7o")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_myfan"]
+size = Vector2(169.777, 48.6786)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nm24p"]
+size = Vector2(10.8535, 223.279)
+
+[node name="Scout" type="CharacterBody2D"]
+rotation = 3.0456
+script = ExtResource("1_843id")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2d3t6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("CanvasTexture_ahtdi")
+
+[node name="FrontDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontDetector"]
+position = Vector2(101.102, 0.27204)
+scale = Vector2(0.999999, 0.999999)
+shape = SubResource("RectangleShape2D_myfan")
+
+[node name="SideDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideDetector"]
+position = Vector2(-0.0663923, 0.899551)
+scale = Vector2(0.999998, 0.999998)
+shape = SubResource("RectangleShape2D_nm24p")
+
+[connection signal="area_entered" from="FrontDetector" to="." method="front_area_entered"]
+[connection signal="area_exited" from="FrontDetector" to="." method="front_area_exited"]
+[connection signal="area_entered" from="SideDetector" to="." method="side_area_entered"]
+[connection signal="area_exited" from="SideDetector" to="." method="side_area_exited"]

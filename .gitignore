@@ -1,0 +1,7 @@
+# Godot-specific files and folders
+.import/
+.godot/
+.mono/
+.mono_temp/
+.mono_logs/
+export_templates/

@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx1lh65wj1nwe"]
+
+[ext_resource type="Script" path="res://Scenes/Layouts/Space.gd" id="1_g2sq3"]
+[ext_resource type="PackedScene" uid="uid://o2iq13gayoje" path="res://Objects/Player/Spaceship.tscn" id="1_kclqb"]
+[ext_resource type="PackedScene" uid="uid://d22stmrcorou8" path="res://Objects/General/camera.tscn" id="2_8s7lf"]
+[ext_resource type="PackedScene" uid="uid://cvrndq1rm11xn" path="res://Objects/Space/Asteroid/asteroid.tscn" id="3_jygp4"]
+[ext_resource type="PackedScene" uid="uid://c5k5vsduxn5fp" path="res://Objects/General/GlobalIllumination/global_light_node.tscn" id="5_pcb7s"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_g2sq3")
+
+[node name="CameraObj" parent="." instance=ExtResource("2_8s7lf")]
+
+[node name="Spaceship" parent="." instance=ExtResource("1_kclqb")]
+position = Vector2(-237, 57)
+motion_mode = 1
+
+[node name="Asteroid" parent="." instance=ExtResource("3_jygp4")]
+
+[node name="GlobalLightNode" parent="." instance=ExtResource("5_pcb7s")]
