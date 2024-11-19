@@ -6,11 +6,39 @@
 
 A script Spaceship.gd está no padrão, use-a de base
 
-VALORES
+================================================================================
+
+VALORES 
 	Variáveis...............funnyVariableName
 	Booleanas...............funnyBooleanName
 	Constantes..............CONSTANT_VALUE
 
+================================================================================
+
+CONVENÇÕES DE NOMENCLATURA
+	(TLDR: quando for implementar uma função similar à
+	alguma função já existente no jogo, verifique como
+	essa função se chama no código e use esse nome.)
+	
+	Tudo que envolver o ÂNGULO DE MOVIMENTO:
+		"moveangle"
+		EX.: 
+			moveangle = velocity.angle()
+	
+	Tudo que envolver o TEMPO DE VIDA:
+		"lifetime"
+		EX.: 
+			lifetime += delta
+	
+	TODOS os objetos que podem ser DESTRUÍDOS precisam
+	obrigatóriamente ter uma função die()
+		"die()" NÃO USAR PARÂMETROS
+		EX.: 
+			func die()
+				spawnExplosionFX() # efeitos especiais na morte
+				queue_free()       # deleta a instância
+
+================================================================================
 
 COMENTÁRIOS
 	Em inglês
@@ -24,28 +52,33 @@ COMENTÁRIOS
 		Uma linha acima
 		CAIXA ALTA
 
+================================================================================
 
 DECLARAÇÃO DE VALORES
 	Primeiro declarar constantes
 	Depois, declarar variáveis e booleanas em seções específicas de suas áreas
 
+================================================================================
 
 FATOS IMPORTANTES MANEIROS
 	Ângulos são em radiano
 	
-	Quando for incrementar um valor com o tempo, não adicione um valor inteiro, adicione DELTA * valor
+	Quando for incrementar um valor com o tempo, não adicione
+	um valor inteiro, adicione DELTA * valor
 		EXEMPLOS:
 		
 		playerShootingCooldown += 1
-		adiciona 1 à playerShootingCooldown a cada tick, o que pode 
-		foder com o timing caso o FPS caia pra menos que sessenta
+		# adiciona 1 à playerShootingCooldown a cada FRAME, o que pode 
+		  foder com o timing caso o FPS do jogo mude
 		
 		playerShootingCooldown += delta
-		adiciona 1 à playerShootingCooldown a cada segundo
+		# adiciona 1 à playerShootingCooldown a cada SEGUNDO
 		
 		playerShootingCooldown += delta * 3
-		adiciona 3 à playerShootingCooldown a cada segundo
+		# adiciona 3 à playerShootingCooldown a cada SEGUNDO
 		
-		delta é a quantidade de segundos elapsados desde o último frame,
-		então, a 60FPS, adicionar delta todo tick adiciona 1/60(0,016) à
-		um valor a cada tick que passa no jogo.
+		# delta é a quantidade de segundos elapsados desde o último frame,
+		  então, a 60FPS, adicionar delta todo frame adiciona 1/60(0,016) à
+		  um valor a cada frame que passa no jogo.
+
+================================================================================

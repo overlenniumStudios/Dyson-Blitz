@@ -2,7 +2,7 @@
 
 [sub_resource type="Gradient" id="Gradient_pbauf"]
 offsets = PackedFloat32Array(0.779221, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.623476, 0.621582, 0.658132, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8hhif"]
 gradient = SubResource("Gradient_pbauf")
@@ -15,11 +15,14 @@ fill_to = Vector2(0, 0.5)
 [node name="GlobalLight" type="PointLight2D" parent="."]
 position = Vector2(-1000, -1000)
 scale = Vector2(250, 250)
+color = Color(1, 0.981792, 0.412957, 1)
 energy = 0.39
+shadow_color = Color(0, 0, 0, 1)
 texture = SubResource("GradientTexture2D_8hhif")
 
 [node name="GlobalShade" type="PointLight2D" parent="."]
 position = Vector2(1000, 1000)
 scale = Vector2(250, 250)
+energy = 1.1
 blend_mode = 1
 texture = SubResource("GradientTexture2D_8hhif")

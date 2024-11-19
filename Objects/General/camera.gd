@@ -7,7 +7,7 @@ var movefac = 0.18 # Factor that controls the smoothness of camera movement
 
 #CAMERA ZOOMIN
 var zoomr = 1
-const ZOOM_MODIFIER = 0.33
+const ZOOM_MODIFIER = 0.2
 
 # INITIALIZATION
 # Called when the node enters the scene tree for the first time.
@@ -23,9 +23,7 @@ func _process(delta):
 	
 	
 	#print(zoomr)
-	var width_ratio = ((float(DisplayServer.window_get_size().x) /1280)) -1
-	
-	zoomr = (clamp(distance/-4000 +1, 0.5,1) * ZOOM_MODIFIER)
+	zoomr = (clamp(distance/-1000 +1, 0.5,1) * ZOOM_MODIFIER)
 	
 	zoom = Vector2(zoomr,zoomr)
 	position = lerp(position, targetposition, movefac)

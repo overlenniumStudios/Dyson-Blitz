@@ -1,20 +1,32 @@
+#Asteroid.gd
 extends RigidBody2D
 
 const GROUPS = ["asteroids", "damageable"]
 
+# DEPENDENCIES
+@onready var hiveMind = get_parent().get_node("Fornax Hivemind")
+const Operations = preload("res://GenericScripts/Operations.gd")
+const Physics = preload("res://GenericScripts/PhysicsGeneric.gd")
 const DMG_particle = preload("res://Objects/Particles/asteroid_particle.tscn")
+
+var isDoneFor: bool = false
+var checkTimer = 0
+var chechTimerMAX = 0.5
+
 const IMPULSE_STRENGTH = 60
 const ANGLE_VARIANCE = PI / 6
 const MAX_LIFETIME = 1.5 #Maximum Lifetime, in seconds
 
-var knockbackResistance = 3
+var knockbackResistance = 2
 
 var maxDist: int
-var health: int = 3  # Set initial health for the asteroid
+var health: int = 2  # Set initial health for the asteroid
 var playerpath = ""
 var lifetime = 0
 var offscreenTime: float = 0.0  # Variable to count time off-scree
 var player: Node2D
+
+var velocity: Vector2 # For compatibility with the position prediction algorithm
 
 # Function to handle asteroid taking damage
 func damage(source, amount: int, knockback):
@@ -43,16 +55,58 @@ func _ready():
 	linear_velocity = Vector2(randf_range(-100, 100), randf_range(-100, 100)).normalized() * randf_range(50, 100)
 	$Visual/AnimatedSprite.frame = randi_range(0, 6)  # Randomly choose an animation frame
 	
-	
 	for x in GROUPS:
 		add_to_group(x)
 
+func markDestruction():
+	# Make sure the range does not exceed the bounds of the array
+	var start_index = hiveMind.getPreceding("scout_asteroid")
+	var end_index = hiveMind.maxTroops[hiveMind.OCCUPATIONS.find("scout_asteroid")] + start_index
+	var avaliableTroops = []
+	var assignedTroop = null
+	
+	# Ensure the range is within bounds
+	for index in range(start_index, end_index + 1):
+		var troop = hiveMind.troops[index]
+		if troop != null and troop.target == null:
+			avaliableTroops.append(troop)
+	
+	if avaliableTroops.size() > 0:
+		assignedTroop = Operations.get_nearestNode(avaliableTroops, global_position)
+	else:
+		print("No available troops found.")
+	
+	print(assignedTroop)
+	
+	if assignedTroop != null:
+		if assignedTroop.target == null:
+			assignedTroop.target = self
+	else:
+		print("No troop found")
+
+func trytoDie(fromPosition):
+	if position.distance_squared_to(fromPosition) < 450**2:
+		isDoneFor = true
+
 func _physics_process(delta):
+	$MarkedToDie.visible = isDoneFor
+	
+	if isDoneFor:
+		if checkTimer < chechTimerMAX:
+			checkTimer += delta
+		else:
+			markDestruction()
+			checkTimer = 0
+	
 	if not player == null:
 		if position.distance_to(player.position) > maxDist:
 			offscreenTime += delta
 		else:
 			pass
+	velocity = linear_velocity
+	
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		trytoDie(get_global_mouse_position())
 	
 	scale = Vector2(1.5, 1.5)  # Set a clear scaling factor
 
