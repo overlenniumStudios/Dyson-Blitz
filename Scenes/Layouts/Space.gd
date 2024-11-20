@@ -4,6 +4,8 @@ const asteroidpath = preload("res://Objects/Space/Asteroid/asteroid.tscn")
 const player = preload("res://Objects/Player/Spaceship.tscn")
 const enemypath = preload("res://Objects/Space/Enemy/Scout/scout.tscn")
 
+@onready var hiveMind = get_node("Fornax Hivemind")
+
 # A
 var asteroidCount: int
 var enemyCount: int
@@ -33,7 +35,7 @@ func _process(delta):
 	asteroidCount = get_tree().get_nodes_in_group("asteroids").size()
 	enemyCount = get_tree().get_nodes_in_group("enemies").size()
 	
-	if enemyCount < maxScoutCount and Input.is_action_just_pressed("ui_accept"):
+	if enemyCount < hiveMind.maxAmount("scout"):
 		var angle2 = randf_range(-PI, PI)
 		spawn_enemy(cos(angle2) * asteroidDistance/100000 + $CameraObj.position.x,sin(angle2) * asteroidDistance + $CameraObj.position.y)
 	

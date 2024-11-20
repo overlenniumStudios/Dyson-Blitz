@@ -12,6 +12,7 @@ const DMG_particle = preload("res://Objects/Particles/asteroid_particle.tscn")
 var isDoneFor: bool = false
 var checkTimer = 0
 var chechTimerMAX = 0.5
+var assignedTroop = null
 
 const IMPULSE_STRENGTH = 60
 const ANGLE_VARIANCE = PI / 6
@@ -41,6 +42,8 @@ func damage(source, amount: int, knockback):
 		die()
 
 func die():
+	if isDoneFor and assignedTroop != null:
+		assignedTroop.target = null # If the asteroid has a troop already assigned to destroy it, It'll remove itself from the target list
 	queue_free()
 
 # Spawns a particle effect at the asteroid's position
@@ -63,7 +66,7 @@ func markDestruction():
 	var start_index = hiveMind.getPreceding("scout_asteroid")
 	var end_index = hiveMind.maxTroops[hiveMind.OCCUPATIONS.find("scout_asteroid")] + start_index
 	var avaliableTroops = []
-	var assignedTroop = null
+	assignedTroop = null
 	
 	# Ensure the range is within bounds
 	for index in range(start_index, end_index + 1):
@@ -92,6 +95,7 @@ func _physics_process(delta):
 	$MarkedToDie.visible = isDoneFor
 	
 	if isDoneFor:
+		$MarkedToDie.global_rotation = 0
 		if checkTimer < chechTimerMAX:
 			checkTimer += delta
 		else:

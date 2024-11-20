@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bwpqhyxbgvnub"]
+
+[ext_resource type="Script" path="res://Objects/Space/Projectiles/GenericBullet/GenBullet.gd" id="1_qbl80"]
+[ext_resource type="Texture2D" uid="uid://dcl1yacil34qy" path="res://Images/Space/Projectiles/GenericShot.png" id="2_sid17"]
+
+[sub_resource type="Gradient" id="Gradient_w6wvd"]
+offsets = PackedFloat32Array(0.795699, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ky5nq"]
+gradient = SubResource("Gradient_w6wvd")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_syp6w"]
+size = Vector2(32, 28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_behyv"]
+atlas = ExtResource("2_sid17")
+region = Rect2(0, 0, 24, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3dlb"]
+atlas = ExtResource("2_sid17")
+region = Rect2(24, 0, 24, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i607a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_behyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3dlb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[node name="Area2D" type="Area2D" groups=["bullet", "player"]]
+top_level = true
+script = ExtResource("1_qbl80")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(15, 15)
+color = Color(0, 1, 1, 1)
+energy = 2.85
+shadow_color = Color(0, 0, 0, 0.698039)
+texture = SubResource("GradientTexture2D_ky5nq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_syp6w")
+
+[node name="Beam" type="AnimatedSprite2D" parent="."]
+visibility_layer = 2
+position = Vector2(-32, 0)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_i607a")
+
+[connection signal="body_entered" from="." to="." method="body_entered"]

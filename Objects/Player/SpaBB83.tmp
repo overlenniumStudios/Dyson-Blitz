@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://o2iq13gayoje"]
+
+[ext_resource type="Script" path="res://Objects/Player/spaceship.gd" id="1_3gvv3"]
+[ext_resource type="Texture2D" uid="uid://c885jbug2msrt" path="res://Images/Space/PlayerShips/Ship_base.png" id="2_atc54"]
+[ext_resource type="Texture2D" uid="uid://d06pyruxm1tbv" path="res://Images/Space/PlayerShips/Ship_normalmap.png" id="3_6dhkx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fuc0c"]
+size = Vector2(22, 22)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_3tjen"]
+diffuse_texture = ExtResource("2_atc54")
+normal_texture = ExtResource("3_6dhkx")
+
+[node name="PlayerShip" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_3gvv3")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_fuc0c")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_fuc0c")
+
+[node name="ShipBody" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ShipBody"]
+scale = Vector2(2, 2)
+texture = SubResource("CanvasTexture_3tjen")
+
+[node name="Bulletspawns" type="Node2D" parent="ShipBody"]
+
+[node name="a0" type="Node2D" parent="ShipBody/Bulletspawns"]
+position = Vector2(18, -15)
+
+[node name="a1" type="Node2D" parent="ShipBody/Bulletspawns"]
+position = Vector2(18, 15)
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

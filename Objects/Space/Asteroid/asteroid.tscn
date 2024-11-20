@@ -1,10 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://cvrndq1rm11xn"]
+[gd_scene load_steps=44 format=3 uid="uid://cvrndq1rm11xn"]
 
 [ext_resource type="Script" path="res://Objects/Space/Asteroid/asteroid.gd" id="1_ekoix"]
 [ext_resource type="Texture2D" uid="uid://bxvgphvk3kyky" path="res://Images/Space/Asteroids/Plain_Large.png" id="1_i8s31"]
 [ext_resource type="Texture2D" uid="uid://divsf5el8mvvn" path="res://Images/Space/Asteroids/Plain_Small.png" id="2_d4k6x"]
 [ext_resource type="Texture2D" uid="uid://cvu1mp76fwbfo" path="res://Images/Space/Asteroids/asteroidBASE.png" id="4_wi5lh"]
 [ext_resource type="Texture2D" uid="uid://bc0ose14qe3ub" path="res://Images/Space/Asteroids/NormalmapBASE.png" id="5_3pjql"]
+[ext_resource type="Texture2D" uid="uid://47h6hafyxapp" path="res://Images/Space/Enemy/_GUI/ScoutTargeting.png" id="6_o0rbn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_62xv6"]
 radius = 43.0116
@@ -214,8 +215,41 @@ point_count = 4
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n4et6"]
 size = Vector2(80, 80)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_gmaoi"]
-size = Vector2(45, 45)
+[sub_resource type="AtlasTexture" id="AtlasTexture_da2d3"]
+atlas = ExtResource("6_o0rbn")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6scs8"]
+atlas = ExtResource("6_o0rbn")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bb8s"]
+atlas = ExtResource("6_o0rbn")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f440y"]
+atlas = ExtResource("6_o0rbn")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_buykf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_da2d3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6scs8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bb8s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f440y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
 [node name="Asteroid" type="RigidBody2D" groups=["asteroids"]]
 input_pickable = true
@@ -271,6 +305,10 @@ color = Color(0.524548, 0.519823, 0.520999, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_n4et6")
 
-[node name="MarkedToDie" type="Sprite2D" parent="."]
-visible = false
-texture = SubResource("PlaceholderTexture2D_gmaoi")
+[node name="MarkedToDie" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_buykf")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0

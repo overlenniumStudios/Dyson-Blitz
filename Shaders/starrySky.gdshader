@@ -110,3 +110,5 @@ void fragment() {
         COLOR = vec4(cloud_col * colour_muiltiplier.rgb, 1.0) * colour_muiltiplier2; // Clouds only
     }
 }
+
+

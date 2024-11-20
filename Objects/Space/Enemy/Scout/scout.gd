@@ -15,7 +15,7 @@ const TROOP_OCCUPATIONS = ["scout_orbit","scout_asteroid"]
 # DEPENDENCIES
 const Operations = preload("res://GenericScripts/Operations.gd")
 const Physics = preload("res://GenericScripts/PhysicsGeneric.gd")
-const BulletScene = preload("res://Objects/Space/Projectiles/PlayerBullet/Bullet.tscn")
+const BulletScene = preload("res://Objects/Space/Projectiles/GenericBullet/GenBullet.tscn")
 
 # HIVE
 @onready var hiveMind = get_parent().get_node("Fornax Hivemind")
@@ -30,7 +30,7 @@ const MAX_SPOT = 1
 var shootSpot = 0
 var shootCooldown = randf()
 var shootCooldown_MAX = 1.5 #Time between shots, in SECONDS
-@onready var bullet_speed = BulletScene.instantiate().TYPE_STATS[1].x
+@onready var bullet_speed = 8
 var inaccuracyF = 0.25 # varies between 0(Very accurate) and 2(Stupid innacurate). FACTOR of a randomly applied offset
 
 # MOVEMENT

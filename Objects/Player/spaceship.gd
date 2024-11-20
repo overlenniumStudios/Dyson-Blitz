@@ -23,7 +23,7 @@ var impulseFallof = 0.4
 
 # SHOOTING
 const BULLET_SPAWN_AMOUNT = 2
-var BulletScene = preload("res://Objects/Space/Projectiles/PlayerBullet/Bullet.tscn")
+var BulletScene = preload("res://Objects/Space/Projectiles/GenericBullet/GenBullet.tscn")
 var bulletspawn = 0
 var shootcooldownmax = 0.25
 var shootcooldown = 0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://owkljn723q45"
-path="res://.godot/imported/RedShot_A.png-7b16998543548e3f137db372b3da2fdf.ctex"
+uid="uid://dcl1yacil34qy"
+path="res://.godot/imported/GenericShot.png-fe0e9b0d935b0b0d1cdbe30150c2b476.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Space/Bullets/RedShot_A.png"
-dest_files=["res://.godot/imported/RedShot_A.png-7b16998543548e3f137db372b3da2fdf.ctex"]
+source_file="res://Images/Space/Projectiles/GenericShot.png"
+dest_files=["res://.godot/imported/GenericShot.png-fe0e9b0d935b0b0d1cdbe30150c2b476.ctex"]
 
 [params]
 

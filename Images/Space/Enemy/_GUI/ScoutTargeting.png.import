@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dh7f2v77xk7k2"
-path="res://.godot/imported/BlueShot_A.png-3bb1ae80678c20c0f39464ff27520ac8.ctex"
+uid="uid://47h6hafyxapp"
+path="res://.godot/imported/ScoutTargeting.png-f27373ac87af8eb188900cb58a10fff0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Space/Bullets/BlueShot_A.png"
-dest_files=["res://.godot/imported/BlueShot_A.png-3bb1ae80678c20c0f39464ff27520ac8.ctex"]
+source_file="res://Images/Space/Enemy/_GUI/ScoutTargeting.png"
+dest_files=["res://.godot/imported/ScoutTargeting.png-f27373ac87af8eb188900cb58a10fff0.ctex"]
 
 [params]
 
