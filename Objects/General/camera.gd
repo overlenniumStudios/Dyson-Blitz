@@ -6,8 +6,7 @@ var targetposition = Vector2(0, 0) # Position the camera will smoothly follow
 var movefac = 0.18 # Factor that controls the smoothness of camera movement
 
 #CAMERA ZOOMIN
-var zoomr = 1
-const ZOOM_MODIFIER = 0.2
+var zoomr = 0.5
 
 # INITIALIZATION
 # Called when the node enters the scene tree for the first time.
@@ -20,10 +19,6 @@ func _process(delta):
 	targetposition = (target.position * 4 + target.mouse) / 5
 	
 	var distance = position.distance_to(target.position)
-	
-	
-	#print(zoomr)
-	zoomr = (clamp(distance/-1000 +1, 0.5,1) * ZOOM_MODIFIER)
 	
 	zoom = Vector2(zoomr,zoomr)
 	position = lerp(position, targetposition, movefac)

@@ -1,12 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://qwv1u63ama5"]
+[gd_scene load_steps=7 format=3 uid="uid://qwv1u63ama5"]
 
 [ext_resource type="Shader" path="res://Shaders/starrySky.gdshader" id="1_4yvqh"]
 
+[sub_resource type="Gradient" id="Gradient_d8uwr"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mjul4"]
+noise_type = 2
+frequency = 0.0412
+fractal_type = 3
+fractal_octaves = 10
+fractal_weighted_strength = 1.0
+domain_warp_amplitude = 3.015
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_li244"]
+seamless = true
+seamless_blend_skirt = 0.242
+bump_strength = 3.5
+color_ramp = SubResource("Gradient_d8uwr")
+noise = SubResource("FastNoiseLite_mjul4")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5jqah"]
 shader = ExtResource("1_4yvqh")
-shader_parameter/seed = 178643.0
-shader_parameter/scale = 1000.0
-shader_parameter/starchance = 0.99
+shader_parameter/stars_on = true
+shader_parameter/timeScaleFactor = 0.04
+shader_parameter/colour_muiltiplier = Color(0.13452, 0.304269, 0.763717, 1)
+shader_parameter/colour_muiltiplier2 = Color(0.288361, 0.361028, 0.751781, 1)
+shader_parameter/brightness = 3.0
+shader_parameter/clouds_resolution = 10.0
+shader_parameter/clouds_intesity = 0.0
+shader_parameter/waveyness = 0.5
+shader_parameter/fragmentation = 7.66
+shader_parameter/distortion = 0.3
+shader_parameter/clouds_alpha = 0.6
+shader_parameter/movement = 1.0
+shader_parameter/blur = 1.4
+shader_parameter/blur2 = 0.01
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_li244")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_spfvo"]
 size = Vector2(1280, 720)

@@ -9,7 +9,7 @@ var asteroidCount: int
 var enemyCount: int
 const maxAsteroidCount = 250
 const asteroidDistance = 3000
-const maxScoutCount = 16
+const maxScoutCount = 16 
 
 var scoutTimer = 0
 
