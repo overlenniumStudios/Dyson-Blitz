@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://yamovpfg2v0x"]
+
+[ext_resource type="Script" path="res://Objects/Space/Enemy/Scout/scout.gd" id="1_0oy4y"]
+[ext_resource type="Texture2D" uid="uid://bryoqs1tnvvor" path="res://Images/Space/Enemy/Scout/Base.png" id="2_dke6m"]
+[ext_resource type="Texture2D" uid="uid://b77rngqgmu8rb" path="res://Images/Space/Enemy/Scout/Base_normalmap.png" id="3_n72de"]
+[ext_resource type="Texture2D" uid="uid://0onnxm1tm55y" path="res://Images/Space/Enemy/Scout/Thruster.png" id="4_c6v07"]
+[ext_resource type="Texture2D" uid="uid://dd4m43fvccfgy" path="res://Images/Space/Enemy/Scout/Thruster_normalmap.png" id="5_k5ltm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sxel2"]
+radius = 48.28
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_v3tu0"]
+diffuse_texture = ExtResource("2_dke6m")
+normal_texture = ExtResource("3_n72de")
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_gft7n"]
+diffuse_texture = ExtResource("4_c6v07")
+normal_texture = ExtResource("5_k5ltm")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1la0c"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7utfo"]
+size = Vector2(333, 114)
+
+[node name="Scout" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_0oy4y")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sxel2")
+
+[node name="Body" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("CanvasTexture_v3tu0")
+
+[node name="ThrusterA" type="Sprite2D" parent="Body"]
+position = Vector2(-5, 17)
+texture = SubResource("CanvasTexture_gft7n")
+
+[node name="ThrusterB" type="Sprite2D" parent="Body"]
+position = Vector2(-5, -17)
+texture = SubResource("CanvasTexture_gft7n")
+
+[node name="Shoot0" type="Node2D" parent="Body"]
+position = Vector2(16, 12)
+
+[node name="Shoot1" type="Node2D" parent="Body"]
+position = Vector2(16, -12)
+
+[node name="PathEnd" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("PlaceholderTexture2D_1la0c")
+
+[node name="FrontSight" type="Area2D" parent="."]
+
+[node name="Hitbox" type="CollisionShape2D" parent="FrontSight"]
+position = Vector2(165.5, -1)
+shape = SubResource("RectangleShape2D_7utfo")
+
+[node name="Line2D" type="Line2D" parent="FrontSight"]
+position = Vector2(-0.184329, 0.320202)
+scale = Vector2(0.98324, 0.640394)
+points = PackedVector2Array(-1, -92, 333, -90, 337, 91, 1, 89)
+
+[connection signal="body_entered" from="FrontSight" to="." method="front_bodyEntered"]
+[connection signal="body_exited" from="FrontSight" to="." method="front_bodyExited"]

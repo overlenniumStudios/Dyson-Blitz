@@ -29,6 +29,47 @@ var player: Node2D
 
 var velocity: Vector2 # For compatibility with the position prediction algorithm
 
+# Called when the node enters the scene tree for the first time
+func _ready():
+	angular_velocity = randf_range(-PI, PI)  # Random angular velocity
+	linear_velocity = Vector2(randf_range(-100, 100), randf_range(-100, 100)).normalized() * randf_range(50, 100)
+	$Visual/AnimatedSprite.frame = randi_range(0, 6)  # Randomly choose an animation frame
+	
+	for x in GROUPS:
+		add_to_group(x)
+
+func _physics_process(delta):
+	$MarkedToDie.visible = isDoneFor
+	if assignedTroop != null:
+		$MarkedToDie.use_parent_material = true
+	else:
+		$MarkedToDie.use_parent_material = false
+	
+	
+	if isDoneFor:
+		$MarkedToDie.global_rotation = 0
+		if checkTimer < chechTimerMAX:
+			checkTimer += delta
+		else:
+			markDestruction()
+			checkTimer = 0
+	
+	if not player == null:
+		if position.distance_to(player.position) > maxDist:
+			offscreenTime += delta
+		else:
+			pass
+	
+	velocity = linear_velocity
+	
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		trytoDie(get_global_mouse_position())
+	
+	scale = Vector2(1.5, 1.5)  # Set a clear scaling factor
+
+	if offscreenTime > MAX_LIFETIME:
+		die()
+
 # Function to handle asteroid taking damage
 func damage(source, amount: int, knockback):
 	health -= amount
@@ -52,67 +93,34 @@ func spawn_particle(type):
 	particle.position = position
 	get_parent().add_child(particle)
 
-# Called when the node enters the scene tree for the first time
-func _ready():
-	angular_velocity = randf_range(-PI, PI)  # Random angular velocity
-	linear_velocity = Vector2(randf_range(-100, 100), randf_range(-100, 100)).normalized() * randf_range(50, 100)
-	$Visual/AnimatedSprite.frame = randi_range(0, 6)  # Randomly choose an animation frame
-	
-	for x in GROUPS:
-		add_to_group(x)
-
 func markDestruction():
 	# Make sure the range does not exceed the bounds of the array
-	var start_index = hiveMind.getPreceding("scout_asteroid")
-	var end_index = hiveMind.maxTroops[hiveMind.OCCUPATIONS.find("scout_asteroid")] + start_index
-	var avaliableTroops = []
-	assignedTroop = null
 	
-	# Ensure the range is within bounds
-	for index in range(start_index, end_index + 1):
-		var troop = hiveMind.troops[index]
-		if troop != null and troop.target == null:
-			avaliableTroops.append(troop)
-	
-	if avaliableTroops.size() > 0:
-		assignedTroop = Operations.get_nearestNode(avaliableTroops, global_position)
+	if assignedTroop == null:
+		
+		var start_index = hiveMind.getPreceding("scout_asteroid")
+		var end_index = hiveMind.maxTroops[hiveMind.OCCUPATIONS.find("scout_asteroid")] + start_index
+		
+		var avaliableTroops = []
+		
+		# Ensure the range is within bounds
+		for index in range(start_index, end_index + 1):
+			var troop = hiveMind.troops[index]
+			if troop != null and troop.target == null:
+				avaliableTroops.append(troop)
+		
+		
+		if avaliableTroops.size() > 0:
+			assignedTroop = Operations.get_nearestNode(avaliableTroops, global_position)
+			assignedTroop.target = self
+		else:
+			print("No available troops found.")
+		
 	else:
-		print("No available troops found.")
-	
-	print(assignedTroop)
-	
-	if assignedTroop != null:
 		if assignedTroop.target == null:
 			assignedTroop.target = self
-	else:
-		print("No troop found")
+	
 
 func trytoDie(fromPosition):
-	if position.distance_squared_to(fromPosition) < 450**2:
+	if position.distance_squared_to(fromPosition) < 900**2:
 		isDoneFor = true
-
-func _physics_process(delta):
-	$MarkedToDie.visible = isDoneFor
-	
-	if isDoneFor:
-		$MarkedToDie.global_rotation = 0
-		if checkTimer < chechTimerMAX:
-			checkTimer += delta
-		else:
-			markDestruction()
-			checkTimer = 0
-	
-	if not player == null:
-		if position.distance_to(player.position) > maxDist:
-			offscreenTime += delta
-		else:
-			pass
-	velocity = linear_velocity
-	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		trytoDie(get_global_mouse_position())
-	
-	scale = Vector2(1.5, 1.5)  # Set a clear scaling factor
-
-	if offscreenTime > MAX_LIFETIME:
-		die()

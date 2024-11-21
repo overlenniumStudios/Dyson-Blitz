@@ -20,4 +20,3 @@ static func get_nearestNode(nodeList: Array, targetPos: Vector2) -> Node2D:
 				closestNode = node
 	
 	return closestNode
-

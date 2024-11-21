@@ -37,7 +37,7 @@ func _process(delta):
 	
 	if enemyCount < hiveMind.maxAmount("scout"):
 		var angle2 = randf_range(-PI, PI)
-		spawn_enemy(cos(angle2) * asteroidDistance/100000 + $CameraObj.position.x,sin(angle2) * asteroidDistance + $CameraObj.position.y)
+		spawn_enemy(cos(angle2) * asteroidDistance + $CameraObj.position.x,sin(angle2) * asteroidDistance + $CameraObj.position.y)
 	
 	if asteroidCount < maxAsteroidCount:
 		var angle = randf_range(-PI, PI)

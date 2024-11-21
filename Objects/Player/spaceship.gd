@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 750.0
 const ACCELERATION = 0.12
 
-const GROUPS = ["player"]
+const GROUPS = ["player", "damageable"]
 
 # DEPENDENCIES
 const Operations = preload("res://GenericScripts/Operations.gd")
@@ -19,7 +19,7 @@ var controller = false
 
 # MOVEMENT EXTRAS
 var impulsion = Vector2(0,0)
-var impulseFallof = 0.4
+var impulseFallof = 0.2
 
 # SHOOTING
 const BULLET_SPAWN_AMOUNT = 2
@@ -32,6 +32,9 @@ var shootcooldown = 0
 var mouse = Vector2(0, 0)
 var angletomouse = 0
 
+#VISUAL
+var noiseIntensity = 1.0
+
 func _ready():
 	for group in GROUPS:
 		add_to_group(group)
@@ -41,6 +44,13 @@ func _physics_process(delta):
 	
 	# INPUT HANDLING
 	directionraw = Vector2(Input.get_axis("K_left", "K_right"), Input.get_axis("K_up", "K_down")) #Movementkeys input
+	
+	if noiseIntensity > 0.0:
+		noiseIntensity -= delta * 4
+	else:
+		noiseIntensity = 0.0
+	
+	$ShipBody/Sprite2D.material.set_shader_parameter("intensity", noiseIntensity)
 	
 	if Input.is_action_pressed("Action") and shootcooldown >= shootcooldownmax: #Mouse input
 		spawnBullet(delta)
@@ -78,10 +88,11 @@ func changebulletspawn(): #Cycles through bullet spawn points, wrapping around o
 # BULLET SPAWN HANDLING
 func spawnBullet(delta): #Spawns a bullet at the current bullet spawn point and attaches it to the parent node.
 	shootcooldown = 0
-	var bullet = BulletScene.instantiate() # Instantiates a new bullet.
-	bullet.position = $ShipBody/Bulletspawns.get_node("a" + str(bulletspawn)).global_position 
-	bullet.type = 0
-	bullet.moveangle = angletomouse
-	get_parent().add_child(bullet) # Adds the bullet to the scene tree.
+	Physics.spawnBullet(BulletScene, self, $ShipBody/Bulletspawns.get_node("a" + str(bulletspawn)).global_position , angletomouse, 0)
 	changebulletspawn() # Cycles to the next bullet spawn point
 	Physics.impulse(self, angletomouse + PI, 100)
+
+func damage(body, damage, knockback):
+	Physics.impulse(self, body.moveangle, knockback)
+	body.die()
+	noiseIntensity = 2.0

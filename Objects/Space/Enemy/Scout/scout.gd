@@ -30,7 +30,7 @@ const MAX_SPOT = 1
 var shootSpot = 0
 var shootCooldown = randf()
 var shootCooldown_MAX = 1.5 #Time between shots, in SECONDS
-@onready var bullet_speed = 8
+@onready var bullet_speed = BulletScene.instantiate().TYPE_STATS[1][1]
 var inaccuracyF = 0.25 # varies between 0(Very accurate) and 2(Stupid innacurate). FACTOR of a randomly applied offset
 
 # MOVEMENT
@@ -76,17 +76,21 @@ func _physics_process(delta):
 	
 	if pattern == "scout_orbit":
 		target = get_parent().get_node("Spaceship")
+		inaccuracyF = 0.25
 	if pattern == "scout_asteroid":
-		pass
+		inaccuracyF = 0
+	
 	
 	# ANGLE SETTING
 	if target != null:
 		angleToTarget = (targetPredPos - position).angle()
 		targetPosition = Vector2(cos(angleToTarget+PI) * orbitRadius, sin(angleToTarget+PI) * orbitRadius) + target.global_position
-		$PathEnd.global_position = targetPredPos
+		
 		
 		# PREDICT THE TARGET'S POSITION FOR AIMING
 		targetPredPos = Physics.predictContact(target, self, bullet_speed)
+		
+		$PathEnd.global_position = targetPredPos
 		
 		# SHOOT AT IT
 		shootLoop(delta)
@@ -152,9 +156,10 @@ func get_nearestBody(list) -> Node2D:
 func damage(source, amount:int, knockback):
 	health -= amount
 	# Add effects and shit
-	Physics.impulse(self, angleToTarget + PI, knockback/knockbackResistance)
+	Physics.impulse(self, (position - source.position).angle(), knockback/knockbackResistance)
 	if health <= 0:
 		die()
+	source.die()
 
 func getOccupation():
 	if pattern != "":
@@ -195,11 +200,7 @@ func shootLoop(delta):
 		shootCooldown += delta
 
 func spawnBullet(pointing, spawnpos: Vector2): #PLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDER
-	var bullet = BulletScene.instantiate() # Instantiates a new bullet.
-	bullet.position = spawnpos
-	bullet.type = 1
-	bullet.moveangle = pointing
-	get_parent().add_child(bullet) # Adds the bullet to the scene tree.
+	Physics.spawnBullet(BulletScene, self, spawnpos, angleToTarget, 1)
 	Physics.impulse(self, pointing + PI, 300)
 	if shootSpot < MAX_SPOT:
 		shootSpot += 1

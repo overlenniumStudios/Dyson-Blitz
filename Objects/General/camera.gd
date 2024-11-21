@@ -6,7 +6,7 @@ var targetposition = Vector2(0, 0) # Position the camera will smoothly follow
 var movefac = 0.18 # Factor that controls the smoothness of camera movement
 
 #CAMERA ZOOMIN
-var zoomr = 0.33
+var zoomr = 0.4
 
 # INITIALIZATION
 # Called when the node enters the scene tree for the first time.

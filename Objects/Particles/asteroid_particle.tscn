@@ -1,50 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2u2u2qqrp5bw"]
+[gd_scene load_steps=3 format=3 uid="uid://d2u2u2qqrp5bw"]
 
 [ext_resource type="Script" path="res://Objects/Particles/asteroid_particle.gd" id="1_q7xpa"]
+[ext_resource type="Material" uid="uid://bnabu57mi3a6i" path="res://Shaders/Particles/Destruction/AsteroidGoesBoom.tres" id="1_v6aah"]
 
-[sub_resource type="Gradient" id="Gradient_5x2ij"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_o1pgs"]
-gradient = SubResource("Gradient_5x2ij")
-width = 1
-
-[sub_resource type="Curve" id="Curve_h4upg"]
-max_value = 100.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.764045, 12.0879), 69.2766, 69.2766, 0, 0, Vector2(1, 18.6813), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_537ia"]
-_data = [Vector2(0, 0), 0.0, 7.04176, 0, 0, Vector2(0.0505618, 1), 1.15914, 1.15914, 0, 0, Vector2(0.876405, 0.945055), -3.19487, -3.19487, 0, 0, Vector2(1, 0), -13.4315, 0.0, 0, 0]
-point_count = 4
-
-[node name="AsteroidParticle" type="CPUParticles2D"]
+[node name="GPUParticles2D" type="GPUParticles2D"]
+scale = Vector2(2, 2)
 emitting = false
-amount = 64
-lifetime = 0.36
+amount = 75
+process_material = ExtResource("1_v6aah")
 one_shot = true
 explosiveness = 1.0
-lifetime_randomness = 1.0
-texture = SubResource("GradientTexture1D_o1pgs")
-emission_shape = 1
-emission_sphere_radius = 34.7
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 191.92
-initial_velocity_max = 353.54
-linear_accel_min = -100.0
-linear_accel_max = -74.76
-radial_accel_max = 100.0
-damping_min = 100.0
-damping_max = 100.0
-damping_curve = SubResource("Curve_h4upg")
-angle_min = -1607.0
-angle_max = 590.0
-scale_amount_min = 2.0
-scale_amount_max = 8.0
-scale_amount_curve = SubResource("Curve_537ia")
-color = Color(0.524548, 0.519823, 0.520999, 1)
+fixed_fps = 45
 script = ExtResource("1_q7xpa")
-
-[connection signal="finished" from="." to="." method="_on_finished"]

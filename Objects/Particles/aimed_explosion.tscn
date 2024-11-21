@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmqug1xmsf3vs"]
-
-[ext_resource type="Script" path="res://scenes/aimed_explosion.gd" id="1_u7pge"]
+[gd_scene load_steps=4 format=3 uid="uid://cmqug1xmsf3vs"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_4glxy"]
 
@@ -38,4 +36,3 @@ scale_amount_min = 61.12
 scale_amount_max = 61.12
 scale_amount_curve = SubResource("Curve_twbir")
 color_ramp = SubResource("Gradient_wx1is")
-script = ExtResource("1_u7pge")
