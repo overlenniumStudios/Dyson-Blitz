@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://o2iq13gayoje" path="res://Objects/Player/Spaceship.tscn" id="1_kclqb"]
 [ext_resource type="PackedScene" uid="uid://d22stmrcorou8" path="res://Objects/General/camera.tscn" id="2_8s7lf"]
 [ext_resource type="PackedScene" uid="uid://c2htskpfee1id" path="res://Objects/Space/Enemy/HiveMind/fornax_hivemind.tscn" id="2_uvqbw"]
-[ext_resource type="PackedScene" uid="uid://cvrndq1rm11xn" path="res://Objects/Space/Asteroid/asteroid.tscn" id="3_jygp4"]
 [ext_resource type="PackedScene" uid="uid://c5k5vsduxn5fp" path="res://Objects/General/GlobalIllumination/global_light_node.tscn" id="5_pcb7s"]
 [ext_resource type="PackedScene" uid="uid://qwv1u63ama5" path="res://Objects/Space/Ambient/starry_sky.tscn" id="6_5kf3l"]
+[ext_resource type="PackedScene" uid="uid://ba34okvft4kt7" path="res://InterfaceObj/SpaceGUI/BattleGUI/battle_gui.tscn" id="7_fyasb"]
 
 [node name="Space" type="Node2D"]
 script = ExtResource("1_g2sq3")
@@ -18,9 +18,11 @@ script = ExtResource("1_g2sq3")
 [node name="Spaceship" parent="." instance=ExtResource("1_kclqb")]
 position = Vector2(-423, 164)
 
-[node name="Asteroid" parent="." instance=ExtResource("3_jygp4")]
-
 [node name="StarrySky" parent="." instance=ExtResource("6_5kf3l")]
 scale = Vector2(50, 50)
 
 [node name="Fornax Hivemind" parent="." instance=ExtResource("2_uvqbw")]
+
+[node name="CanvasLayer_GUI" type="CanvasLayer" parent="."]
+
+[node name="BattleGUI" parent="CanvasLayer_GUI" instance=ExtResource("7_fyasb")]

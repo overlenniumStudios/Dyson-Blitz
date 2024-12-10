@@ -12,7 +12,7 @@ void vertex() {
 		fract(sin(VERTEX.y * TIME ) * 43758.5453) * 4.0 - 2.0
 		,fract(sin(VERTEX.x * TIME ) * 43758.5453) * 4.0 - 2.0);
 
-	VERTEX += glitchOffset * vec2(intensity*5.0);
+	VERTEX += glitchOffset * vec2(intensity*2.0);
 
 }
 

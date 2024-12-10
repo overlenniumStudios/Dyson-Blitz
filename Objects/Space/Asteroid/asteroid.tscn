@@ -314,7 +314,7 @@ shape = SubResource("RectangleShape2D_n4et6")
 [node name="MarkedToDie" type="AnimatedSprite2D" parent="."]
 light_mask = 0
 material = SubResource("ShaderMaterial_6ulv7")
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_buykf")
 autoplay = "default"
 frame_progress = 0.605905

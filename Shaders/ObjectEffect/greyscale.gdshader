@@ -13,3 +13,4 @@ void fragment() {
 	COLOR = ((COLOR * vec4(1.0-intensity)) + grayscaledColor) * vec4(lightness, lightness, lightness, 1.0);
 	
 }
+

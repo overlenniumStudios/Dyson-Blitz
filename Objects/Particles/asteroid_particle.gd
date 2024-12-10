@@ -5,11 +5,5 @@ extends GPUParticles2D
 func _ready():
 	restart() 
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func _on_finished():
 	queue_free()

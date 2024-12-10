@@ -11,8 +11,8 @@ size = Vector2(32, 32)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j6ss8"]
 resource_local_to_scene = true
 shader = ExtResource("2_krr6x")
-shader_parameter/intensity = 1.0
-shader_parameter/scale = 3.9
+shader_parameter/intensity = 0.2
+shader_parameter/scale = 3.05
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_3tjen"]
 diffuse_texture = ExtResource("2_atc54")

@@ -13,7 +13,7 @@ const Physics = preload("res://GenericScripts/PhysicsGeneric.gd")
 
 # MAX TROOPS AMOUNT
 const MX_TROOP_TYPE: Array = ["scout", "kamikaze", "shotgunner"]
-var maxOfTroop: Array      = [16     , 0         , 0           ]
+var maxOfTroop: Array      = [6     , 0         , 0           ]
 
 # RETURNS THE MAXIMUM AMOUNT OF TROOPS IN MAXTROOPSARAY
 func maxAmount(troop):
@@ -22,7 +22,7 @@ func maxAmount(troop):
 
 # OCCUPATION ARRAY: DEFAULT VALUES (2 arrays)
 const OCCUPATIONS: Array = ["scout_orbit","scout_asteroid","end"]
-var maxTroops: Array     = [3            ,13               ,0]
+var maxTroops: Array     = [3            ,3               ,0]
 
 # OCCUPATION ARRAY: MEMORY MODULE (3 arrays)
 var occupations: Array     = []

@@ -9,6 +9,10 @@ const GROUPS = ["player", "damageable"]
 # DEPENDENCIES
 const Operations = preload("res://GenericScripts/Operations.gd")
 const Physics = preload("res://GenericScripts/PhysicsGeneric.gd")
+const damageParticle = preload("res://Objects/Particles/Destruction/SparksAimed.tscn")
+
+# SIGNALING
+signal health_changed(new_health, max_health)
 
 # MOVEMENT
 var directionraw = Vector2(Input.get_axis("ui_left", "ui_right"), Input.get_axis("ui_up", "ui_down"))
@@ -35,9 +39,15 @@ var angletomouse = 0
 #VISUAL
 var noiseIntensity = 1.0
 
+# STATS
+var health: int
+var maxHealth = 20
+
 func _ready():
 	for group in GROUPS:
 		add_to_group(group)
+	
+	changeHealth(maxHealth-health)
 
 # PHYSICS PROCESS
 func _physics_process(delta):
@@ -46,7 +56,7 @@ func _physics_process(delta):
 	directionraw = Vector2(Input.get_axis("K_left", "K_right"), Input.get_axis("K_up", "K_down")) #Movementkeys input
 	
 	if noiseIntensity > 0.0:
-		noiseIntensity -= delta * 4
+		noiseIntensity -= delta * 2
 	else:
 		noiseIntensity = 0.0
 	
@@ -94,5 +104,14 @@ func spawnBullet(delta): #Spawns a bullet at the current bullet spawn point and 
 
 func damage(body, damage, knockback):
 	Physics.impulse(self, body.moveangle, knockback)
+	Physics.spawnParticle(damageParticle, self, body.moveangle)
 	body.die()
-	noiseIntensity = 2.0
+	noiseIntensity = 1.0
+	changeHealth(-1)
+	print(self, " took damage! New HP: ", health)
+
+func changeHealth(factor):
+	health += factor
+	emit_signal("health_changed", health, maxHealth)
+	if health <= 0:
+		health = maxHealth

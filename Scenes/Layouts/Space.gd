@@ -9,7 +9,7 @@ const enemypath = preload("res://Objects/Space/Enemy/Scout/scout.tscn")
 # A
 var asteroidCount: int
 var enemyCount: int
-const maxAsteroidCount = 250
+const maxAsteroidCount = 40
 const asteroidDistance = 3000
 const maxScoutCount = 16 
 

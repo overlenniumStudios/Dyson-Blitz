@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbk4kweglxgr8"]
+
+[ext_resource type="Material" uid="uid://c3sv7vgnqf7pm" path="res://Shaders/Particles/Destruction/SparksGravity.tres" id="1_jganm"]
+[ext_resource type="Texture2D" uid="uid://bpgwbwqb1cwve" path="res://Shaders/Textures/Longo.tres" id="2_cuxto"]
+[ext_resource type="Script" path="res://Objects/Particles/Destruction/SparksGravity.gd" id="2_ucf1w"]
+[ext_resource type="Material" uid="uid://vvvsq8tuc647" path="res://Shaders/Particles/Destruction/SmokeGravity.tres" id="3_wfm5q"]
+
+[node name="GravitySparks" type="GPUParticles2D"]
+position = Vector2(14.5, 30)
+emitting = false
+amount = 60
+process_material = ExtResource("1_jganm")
+texture = ExtResource("2_cuxto")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+trail_lifetime = 0.05
+script = ExtResource("2_ucf1w")
+
+[node name="Smoke" type="GPUParticles2D" parent="."]
+z_index = -1
+rotation = 4.71239
+emitting = false
+amount = 25
+process_material = ExtResource("3_wfm5q")
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 50

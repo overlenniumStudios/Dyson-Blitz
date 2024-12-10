@@ -63,6 +63,7 @@ func _physics_process(delta):
 
 
 func die():
+	$PointLight2D.enabled = false
 	queue_free()
 
 func body_entered(body):

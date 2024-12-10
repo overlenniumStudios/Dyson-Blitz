@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bw1863c0ld6db"]
+
+[ext_resource type="Material" uid="uid://c4xeldt2qc7o" path="res://Shaders/Particles/Destruction/SparksAngled.tres" id="1_hwesw"]
+[ext_resource type="Texture2D" uid="uid://bpgwbwqb1cwve" path="res://Shaders/Textures/Longo.tres" id="2_12xuw"]
+[ext_resource type="Script" path="res://Objects/Particles/Destruction/sparks_aimed.gd" id="3_1bm1d"]
+[ext_resource type="Texture2D" uid="uid://x213btajdrbh" path="res://Shaders/LightSources/GlowBIG.tres" id="3_foofc"]
+
+[node name="SparksAimed" type="GPUParticles2D"]
+light_mask = 8
+emitting = false
+amount = 32
+process_material = ExtResource("1_hwesw")
+texture = ExtResource("2_12xuw")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.1
+script = ExtResource("3_1bm1d")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+rotation = 1.5708
+color = Color(1, 1, 0.00784314, 1)
+energy = 4.0
+texture = ExtResource("3_foofc")
+height = 5.0

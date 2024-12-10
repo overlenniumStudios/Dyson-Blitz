@@ -1,0 +1,123 @@
+[gd_scene load_steps=10 format=3 uid="uid://ba34okvft4kt7"]
+
+[ext_resource type="Texture2D" uid="uid://c7n06k76gw0yf" path="res://Images/Interface/BattleGUI/Barra de vida.png" id="1_fsf36"]
+[ext_resource type="Script" path="res://InterfaceObj/SpaceGUI/BattleGUI/battle_gui.gd" id="1_yureb"]
+[ext_resource type="Texture2D" uid="uid://d3w8sfqn1t6qw" path="res://Images/Interface/BattleGUI/EngrenagemB.png" id="2_e3ego"]
+[ext_resource type="Texture2D" uid="uid://4e6h1p253roy" path="res://Images/Interface/BattleGUI/EngrenagemA.png" id="3_ylubs"]
+[ext_resource type="Texture2D" uid="uid://c4n78iirxhjh0" path="res://Images/Interface/BattleGUI/aVida.png" id="5_0qwth"]
+[ext_resource type="Shader" path="res://Shaders/ObjectEffect/setColor.gdshader" id="5_k6e26"]
+[ext_resource type="PackedScene" uid="uid://bbk4kweglxgr8" path="res://Objects/Particles/Destruction/SparksGravity.tscn" id="7_gmm21"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_owp1b"]
+shader = ExtResource("5_k6e26")
+shader_parameter/r = 0.47
+shader_parameter/g = 0.11
+shader_parameter/b = 0.11
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asttt"]
+shader = ExtResource("5_k6e26")
+shader_parameter/r = 0.44
+shader_parameter/g = 0.84
+shader_parameter/b = 0.84
+
+[node name="BattleGUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yureb")
+
+[node name="Top" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 135.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+
+[node name="HPcontainer" type="TextureRect" parent="Top"]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 357.0
+offset_bottom = 29.0
+texture = ExtResource("1_fsf36")
+
+[node name="GearSmol" type="TextureRect" parent="Top/HPcontainer"]
+z_index = -1
+layout_mode = 0
+offset_left = 329.5
+offset_top = 1.0
+offset_right = 334.5
+offset_bottom = 6.0
+pivot_offset = Vector2(2.5, 2.5)
+texture = ExtResource("2_e3ego")
+
+[node name="GearBig" type="TextureRect" parent="Top/HPcontainer"]
+z_index = -1
+layout_mode = 0
+offset_left = 319.0
+offset_top = 4.0
+offset_right = 332.0
+offset_bottom = 17.0
+pivot_offset = Vector2(6.5, 6.5)
+texture = ExtResource("3_ylubs")
+
+[node name="Modular" type="Control" parent="Top/HPcontainer"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HPlerp" type="TextureRect" parent="Top/HPcontainer/Modular"]
+material = SubResource("ShaderMaterial_owp1b")
+layout_mode = 0
+offset_left = 10.0
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 24.0
+texture = ExtResource("5_0qwth")
+stretch_mode = 1
+
+[node name="HP" type="TextureRect" parent="Top/HPcontainer/Modular"]
+material = SubResource("ShaderMaterial_asttt")
+layout_mode = 0
+offset_left = 10.0
+offset_top = 16.0
+offset_right = 15.0
+offset_bottom = 24.0
+texture = ExtResource("5_0qwth")
+stretch_mode = 1
+
+[node name="Particles" type="Control" parent="Top/HPcontainer"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GravitySparks7" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(64, 20.5)
+
+[node name="GravitySparks2" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(29, 20)
+
+[node name="GravitySparks" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(106.5, 21)
+
+[node name="GravitySparks5" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(249, 20)
+
+[node name="GravitySparks4" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(300.5, 20)
+
+[node name="GravitySparks6" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(149, 21)
+
+[node name="GravitySparks3" parent="Top/HPcontainer/Particles" instance=ExtResource("7_gmm21")]
+z_index = 1
+position = Vector2(195.5, 20)

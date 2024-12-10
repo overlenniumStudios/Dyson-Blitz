@@ -30,6 +30,14 @@ CONVENÇÕES DE NOMENCLATURA
 		EX.: 
 			lifetime += delta
 	
+	Para mudar o HP de um damageable,
+		"health"     vida
+		"maxHealth"  vida máxima
+	use a função:
+		func changeHealth(factor):
+			health += factor
+			emit_signal("health_changed", health, maxHealth)
+	
 	TODOS os objetos que podem ser DESTRUÍDOS precisam
 	obrigatóriamente ter uma função die()
 		"die()" NÃO USAR PARÂMETROS
@@ -46,17 +54,32 @@ COMENTÁRIOS
 	Para linhas individuais de código...
 		Na mesma linha
 		Maíusculo no início
-		Minúsculo normalmente, regras de gramática
+		Seguir regras de gramática da lingua inglesa
 	
 	Título para seções de código para uma função
 		Uma linha acima
 		CAIXA ALTA
+	
+	Explicação sucinta de uma linha para um trecho
+		Não precisa de título
+		Seguir regras de gramática da lingua inglesa
 
 ================================================================================
 
 DECLARAÇÃO DE VALORES
-	Primeiro declarar constantes
-	Depois, declarar variáveis e booleanas em seções específicas de suas áreas
+	1º delcarar grupos
+	2º declarar caminhos de dependências e dependentes
+	3º declarar constantes, variáveis e booleanas em seções específicas 
+	   de suas áreas, agrupadas de acordo com suas funções no código.
+
+================================================================================
+
+SIGNALING DE FUNÇÃO
+	TODOS os signals de engine DEVEM ser escritos em TOTALMENTE letra minúscula,
+	separados por UNDERLINES; Exemplos:
+	
+	emit_signal("nave_explodiu", 100) ISSO É CORRETO
+	emit_signal("NaveExplodiu") ISSO É ERRADO
 
 ================================================================================
 

@@ -75,7 +75,7 @@ func damage(source, amount: int, knockback):
 	health -= amount
 	var knockback_angle = source.velocity.angle() + randf_range(-ANGLE_VARIANCE, ANGLE_VARIANCE)
 	var impulse_vector = Vector2(cos(knockback_angle), sin(knockback_angle)) * (knockback/knockbackResistance)
-	spawn_particle(DMG_particle)
+	Physics.spawnParticle(DMG_particle, self, 0)
 	set_axis_velocity(impulse_vector)
 	angular_velocity = (source.velocity.angle() - knockback_angle) * 12
 	source.die()  # Destroy bullet
@@ -86,12 +86,6 @@ func die():
 	if isDoneFor and assignedTroop != null:
 		assignedTroop.target = null # If the asteroid has a troop already assigned to destroy it, It'll remove itself from the target list
 	queue_free()
-
-# Spawns a particle effect at the asteroid's position
-func spawn_particle(type):
-	var particle = type.instantiate()
-	particle.position = position
-	get_parent().add_child(particle)
 
 func markDestruction():
 	# Make sure the range does not exceed the bounds of the array

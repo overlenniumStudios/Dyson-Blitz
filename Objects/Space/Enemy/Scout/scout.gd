@@ -16,6 +16,8 @@ const TROOP_OCCUPATIONS = ["scout_orbit","scout_asteroid"]
 const Operations = preload("res://GenericScripts/Operations.gd")
 const Physics = preload("res://GenericScripts/PhysicsGeneric.gd")
 const BulletScene = preload("res://Objects/Space/Projectiles/GenericBullet/GenBullet.tscn")
+const deathParticle = preload("res://Objects/Particles/Explosions/aimed_explosion.tscn")
+const damageParticle = preload("res://Objects/Particles/Destruction/SparksAimed.tscn")
 
 # HIVE
 @onready var hiveMind = get_parent().get_node("Fornax Hivemind")
@@ -76,7 +78,7 @@ func _physics_process(delta):
 	
 	if pattern == "scout_orbit":
 		target = get_parent().get_node("Spaceship")
-		inaccuracyF = 0.25
+		inaccuracyF = 0.5
 	if pattern == "scout_asteroid":
 		inaccuracyF = 0
 	
@@ -88,7 +90,7 @@ func _physics_process(delta):
 		
 		
 		# PREDICT THE TARGET'S POSITION FOR AIMING
-		targetPredPos = Physics.predictContact(target, self, bullet_speed)
+		targetPredPos = Physics.predictContact(delta, target, self, bullet_speed)
 		
 		$PathEnd.global_position = targetPredPos
 		
@@ -156,8 +158,10 @@ func get_nearestBody(list) -> Node2D:
 func damage(source, amount:int, knockback):
 	health -= amount
 	# Add effects and shit
-	Physics.impulse(self, (position - source.position).angle(), knockback/knockbackResistance)
+	Physics.spawnParticle(damageParticle, self, source.moveangle) 
+	Physics.impulse(self, source.moveangle, knockback/knockbackResistance)
 	if health <= 0:
+		Physics.spawnParticle(deathParticle, self, source.moveangle) 
 		die()
 	source.die()
 
@@ -200,7 +204,7 @@ func shootLoop(delta):
 		shootCooldown += delta
 
 func spawnBullet(pointing, spawnpos: Vector2): #PLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDERPLACEHOLDER
-	Physics.spawnBullet(BulletScene, self, spawnpos, angleToTarget, 1)
+	Physics.spawnBullet(BulletScene, self, spawnpos, (($PathEnd.global_position - spawnpos).angle()), 1)
 	Physics.impulse(self, pointing + PI, 300)
 	if shootSpot < MAX_SPOT:
 		shootSpot += 1

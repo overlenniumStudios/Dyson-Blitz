@@ -55,7 +55,7 @@ float flow(vec2 p) {
 	float z = 2.;
 	float rz = clouds_intesity;
 	vec2 bp = p;
-	
+
 	for(float i = 1.; i < 7.; ++i) {
 		p += localTime() * .6;
 		bp += localTime() * 5.9;
@@ -72,7 +72,7 @@ float flow(vec2 p) {
 }
 
 float rand(vec2 st) {
-	
+
     return fract(sin(dot(st.xy, vec2(12.9898,72.233))) * 53758.5453123);
 }
 
@@ -110,5 +110,3 @@ void fragment() {
         COLOR = vec4(cloud_col * colour_muiltiplier.rgb, 1.0) * colour_muiltiplier2; // Clouds only
     }
 }
-
-
