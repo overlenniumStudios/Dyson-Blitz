@@ -37,7 +37,7 @@ var mouse = Vector2(0, 0)
 var angletomouse = 0
 
 #VISUAL
-var noiseIntensity = 1.0
+var noiseFade = 1.0
 
 # STATS
 var health: int
@@ -55,12 +55,12 @@ func _physics_process(delta):
 	# INPUT HANDLING
 	directionraw = Vector2(Input.get_axis("K_left", "K_right"), Input.get_axis("K_up", "K_down")) #Movementkeys input
 	
-	if noiseIntensity > 0.0:
-		noiseIntensity -= delta * 2
-	else:
-		noiseIntensity = 0.0
+	if noiseFade < 1.0:
+		noiseFade += delta/3.0
+	if noiseFade < 0.0:
+		noiseFade = 0.0
 	
-	$ShipBody/Sprite2D.material.set_shader_parameter("intensity", noiseIntensity)
+	$ShipBody/Sprite2D.material.set_shader_parameter("intensity", noiseFade)
 	
 	if Input.is_action_pressed("Action") and shootcooldown >= shootcooldownmax: #Mouse input
 		spawnBullet(delta)
@@ -106,7 +106,7 @@ func damage(body, damage, knockback):
 	Physics.impulse(self, body.moveangle, knockback)
 	Physics.spawnParticle(damageParticle, self, body.moveangle)
 	body.die()
-	noiseIntensity = 1.0
+	noiseFade = noiseFade/2.0
 	changeHealth(-1)
 	print(self, " took damage! New HP: ", health)
 

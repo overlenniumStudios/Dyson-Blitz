@@ -1,0 +1,44 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=7 format=3 uid="uid://qe5efadpbmlh"]
+
+[sub_resource type="Curve" id="Curve_2awqr"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -2.6825), 0.0, 0.0, 0, 0, Vector2(0.138182, 4.29214), -2508.2, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ib7o6"]
+curve = SubResource("Curve_2awqr")
+
+[sub_resource type="Curve" id="Curve_jtcr4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.334545, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jtdv1"]
+curve = SubResource("Curve_jtcr4")
+
+[sub_resource type="Curve" id="Curve_jan6a"]
+max_value = 4.0
+_data = [Vector2(0, 0), 0.0, 34.3384, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4hg36"]
+curve = SubResource("Curve_jan6a")
+
+[resource]
+lifetime_randomness = 0.75
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape_scale = Vector3(96, 1, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = 1.07288e-05
+angle_max = 90.0
+angle_curve = SubResource("CurveTexture_ib7o6")
+spread = 180.0
+radial_velocity_min = -47.56
+radial_velocity_max = 131.54
+radial_velocity_curve = SubResource("CurveTexture_jtdv1")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_4hg36")

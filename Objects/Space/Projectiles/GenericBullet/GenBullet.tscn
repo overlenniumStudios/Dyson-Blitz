@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwpqhyxbgvnub"]
+[gd_scene load_steps=10 format=3 uid="uid://bwpqhyxbgvnub"]
 
 [ext_resource type="Script" path="res://Objects/Space/Projectiles/GenericBullet/GenBullet.gd" id="1_qbl80"]
 [ext_resource type="Texture2D" uid="uid://dcny2bakfn2kx" path="res://Shaders/LightSources/GlowSMALL.tres" id="2_df8yx"]
 [ext_resource type="Texture2D" uid="uid://dcl1yacil34qy" path="res://Images/Space/Projectiles/GenericShot.png" id="2_sid17"]
+[ext_resource type="Material" uid="uid://qe5efadpbmlh" path="res://Shaders/Particles/Trails/TrailLightBullet.tres" id="4_pq45l"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_73ta2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_syp6w"]
 size = Vector2(32, 28)
@@ -40,13 +43,22 @@ energy = 2.85
 shadow_color = Color(0, 0, 0, 0.698039)
 texture = ExtResource("2_df8yx")
 
+[node name="Sprite2D" type="Sprite2D" parent="PointLight2D"]
+texture = SubResource("PlaceholderTexture2D_73ta2")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_syp6w")
 
 [node name="Beam" type="AnimatedSprite2D" parent="."]
 visibility_layer = 2
-position = Vector2(-32, 0)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_i607a")
+
+[node name="Trail" type="GPUParticles2D" parent="Beam"]
+position = Vector2(-24.5, 0)
+scale = Vector2(0.5, 0.5)
+amount = 32
+process_material = ExtResource("4_pq45l")
+lifetime = 0.2
 
 [connection signal="body_entered" from="." to="." method="body_entered"]

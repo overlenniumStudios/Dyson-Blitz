@@ -54,20 +54,18 @@ func _physics_process(delta):
 		if lifetime >= MAX_LIFETIME:
 			die()
 		
-		
-		
 		$Beam.frame = type
 		$Beam.rotation = moveangle
 		position += velocity * delta
 
-
-
 func die():
 	$PointLight2D.enabled = false
+	$PointLight2D.energy = 0
+	$Beam.visible = false
 	queue_free()
 
 func body_entered(body):
-	if body.is_in_group("damageable"):
+	if body.is_in_group("damageable") and velocity != Vector2(0,0):
 		if body.is_in_group("enemies") and type == 0:
 			body.damage(self, damage, punch)
 		if body.is_in_group("player") and type == 1:
